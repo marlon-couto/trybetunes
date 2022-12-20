@@ -12,6 +12,7 @@ export default class Search extends Component {
     searchResponse: [],
     isLoading: false,
     artist: '',
+    buttonClicked: false,
   };
 
   inputValidation = (value) => {
@@ -32,17 +33,20 @@ export default class Search extends Component {
     );
   };
 
-  handleClick = () => {
+  handleClick = async () => {
     const { searchValue } = this.state;
 
     this.setState(
       {
+        buttonClicked: true,
         isDisabled: true,
         isLoading: true,
         artist: searchValue,
       },
       async () => {
-        const response = await searchAlbumsAPI(searchValue);
+        const { artist } = this.state;
+        const response = await searchAlbumsAPI(artist);
+
         this.setState({
           searchValue: '',
           isLoading: false,
@@ -53,7 +57,14 @@ export default class Search extends Component {
   };
 
   render() {
-    const { searchResponse, searchValue, isDisabled, isLoading, artist } = this.state;
+    const {
+      buttonClicked,
+      searchResponse,
+      searchValue,
+      isDisabled,
+      isLoading,
+      artist,
+    } = this.state;
 
     return (
       <div data-testid="page-search">
@@ -65,11 +76,13 @@ export default class Search extends Component {
           handleClick={ this.handleClick }
         />
 
-        <SearchResult
-          searchResponse={ searchResponse }
-          artist={ artist }
-          isLoading={ isLoading }
-        />
+        {buttonClicked && (
+          <SearchResult
+            searchResponse={ searchResponse }
+            artist={ artist }
+            isLoading={ isLoading }
+          />
+        )}
       </div>
     );
   }
