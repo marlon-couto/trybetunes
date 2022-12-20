@@ -1,21 +1,9 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 export default class SearchForm extends Component {
-  state = {
-    isDisabled: true,
-  };
-
-  handleChange = ({ target }) => {
-    const { value } = target;
-    const minLength = 2;
-
-    if (value.length >= minLength) {
-      this.setState({ isDisabled: false });
-    }
-  };
-
   render() {
-    const { isDisabled } = this.state;
+    const { searchValue, isDisabled, handleChange, handleClick } = this.props;
 
     return (
       <form>
@@ -24,13 +12,15 @@ export default class SearchForm extends Component {
           name="searchArtist"
           id="searchArtist"
           data-testid="search-artist-input"
-          onChange={ this.handleChange }
+          onChange={ handleChange }
+          value={ searchValue }
         />
 
         <button
           type="submit"
           data-testid="search-artist-button"
           disabled={ isDisabled }
+          onClick={ handleClick }
         >
           Pesquisar
         </button>
@@ -38,3 +28,10 @@ export default class SearchForm extends Component {
     );
   }
 }
+
+SearchForm.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
+  searchValue: PropTypes.string.isRequired,
+};
