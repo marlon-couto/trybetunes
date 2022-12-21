@@ -9,6 +9,23 @@ export default class MusicCard extends Component {
     isLoading: false,
   };
 
+  componentDidMount() {
+    this.checkFavoriteSong();
+  }
+
+  checkFavoriteSong = () => {
+    const {
+      music: { trackId },
+      savedSongs,
+    } = this.props;
+
+    const isFavoriteSong = savedSongs.some(
+      (savedSong) => savedSong.trackId === trackId,
+    );
+
+    this.setState({ isChecked: isFavoriteSong });
+  };
+
   handleChange = async () => {
     const { isChecked } = this.state;
     const { music } = this.props;
@@ -65,8 +82,15 @@ export default class MusicCard extends Component {
 
 MusicCard.propTypes = {
   music: PropTypes.shape({
-    trackId: PropTypes.number.isRequired,
-    trackName: PropTypes.string.isRequired,
-    previewUrl: PropTypes.string.isRequired,
+    trackId: PropTypes.number,
+    trackName: PropTypes.string,
+    previewUrl: PropTypes.string,
   }).isRequired,
+  savedSongs: PropTypes.arrayOf(
+    PropTypes.shape({
+      trackId: PropTypes.number,
+      trackName: PropTypes.string,
+      previewUrl: PropTypes.string,
+    }),
+  ).isRequired,
 };
