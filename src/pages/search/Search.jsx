@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import searchAlbumsAPI from '../services/searchAlbumsAPI';
+import searchAlbumsAPI from '../../services/searchAlbumsAPI';
 
-import Header from '../components/Header';
-import SearchForm from '../components/SearchForm';
-import SearchResult from '../components/SearchResult';
+import Header from '../../components/layout/Header';
+import SearchForm from './SearchForm';
+import SearchResult from './SearchResult';
 
 export default class Search extends Component {
   state = {

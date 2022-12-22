@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { createUser } from '../services/userAPI';
+import { createUser } from '../../services/userAPI';
 
-import Form from '../components/Form';
-import Loading from '../components/Loading';
+import Loading from '../../components/Loading';
+import LoginForm from './LoginForm';
 
 export default class Login extends Component {
   state = {
@@ -51,7 +51,7 @@ export default class Login extends Component {
         ) : (
           <div data-testid="page-login">
             <p>Login</p>
-            <Form
+            <LoginForm
               isDisabled={ isDisabled }
               userName={ userName }
               handleChange={ this.handleChange }
