@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class NameInput extends Component {
+export default class Input extends Component {
   render() {
-    const { handleChange, value, type, name, dataTestId } = this.props;
+    const { handleChange, value, type, name, dataTestId, text } = this.props;
 
     return (
       <div>
-        <label htmlFor="nameInput">
+        <label htmlFor={ name }>
+          { text }
           <input
             type={ type }
             name={ name }
@@ -22,10 +23,15 @@ export default class NameInput extends Component {
   }
 }
 
-NameInput.propTypes = {
+Input.propTypes = {
   handleChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   dataTestId: PropTypes.string.isRequired,
+  text: PropTypes.string,
+};
+
+Input.defaultProps = {
+  text: '',
 };

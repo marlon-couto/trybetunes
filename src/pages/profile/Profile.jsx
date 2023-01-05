@@ -8,7 +8,10 @@ import ProfileInfo from './ProfileInfo';
 export default class Profile extends Component {
   state = {
     isLoading: false,
-    userInfo: {},
+    name: '',
+    description: '',
+    image: '',
+    email: '',
   };
 
   componentDidMount() {
@@ -21,16 +24,16 @@ export default class Profile extends Component {
 
       this.setState({
         isLoading: false,
-        userInfo: response,
+        name: response.name,
+        email: response.email,
+        description: response.description,
+        image: response.image,
       });
     });
   };
 
   render() {
-    const {
-      isLoading,
-      userInfo: { name, description, email, image },
-    } = this.state;
+    const { isLoading, name, description, email, image } = this.state;
 
     return (
       <div data-testid="page-profile">
