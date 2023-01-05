@@ -28,7 +28,7 @@ export default class Header extends Component {
     return (
       <header data-testid="header-component">
         <Navbar />
-        {isLoading ? <Loading /> : <p data-testid="header-user-name">{name}</p>}
+        {isLoading ? <Loading /> : <h3 data-testid="header-user-name">{name}</h3>}
       </header>
     );
   }
