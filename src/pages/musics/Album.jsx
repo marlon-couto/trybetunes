@@ -22,6 +22,8 @@ export default class Album extends Component {
     this.getMusicsById();
   }
 
+  updateSongs = () => {};
+
   getSavedSongs = async () => {
     this.setState({ isLoading: true }, async () => {
       const response = await getFavoriteSongs();
@@ -39,7 +41,7 @@ export default class Album extends Component {
     const response = await getMusics(id);
 
     this.setState({
-      musics: response,
+      musics: response.slice(1),
       artistName: response[0].artistName,
       albumName: response[0].collectionName,
     });
@@ -64,7 +66,7 @@ export default class Album extends Component {
           albumName={ albumName }
         />
 
-        {musics.slice(1).map((music) => {
+        {musics.map((music) => {
           const { trackId } = music;
 
           return (
@@ -73,7 +75,7 @@ export default class Album extends Component {
               isFavorite={ this.isFavoriteSong(trackId) }
               key={ trackId }
               trackId={ Number(trackId) }
-              updateSongs={ this.getSavedSongs }
+              updateSongs={ this.updateSongs }
             />
           );
         })}
