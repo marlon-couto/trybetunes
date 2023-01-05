@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { getFavoriteSongs } from '../../services/favoriteSongsAPI';
 import getMusics from '../../services/musicsAPI';
 
+import AlbumInfo from './AlbumInfo';
 import Header from '../../components/layout/Header';
-import Loading from '../../components/Loading';
+import Loading from '../../components/layout/Loading';
 import MusicCard from './MusicCard';
 
 export default class Album extends Component {
@@ -17,15 +17,15 @@ export default class Album extends Component {
     isLoading: false,
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     this.getSavedSongs();
     this.getMusicsById();
   }
 
   getSavedSongs = async () => {
     this.setState({ isLoading: true }, async () => {
-      const result = await getFavoriteSongs();
-      this.setState({ isLoading: false, savedSongs: result });
+      const response = await getFavoriteSongs();
+      this.setState({ isLoading: false, savedSongs: response });
     });
   };
 
@@ -36,17 +36,22 @@ export default class Album extends Component {
       },
     } = this.props;
 
-    const result = await getMusics(id);
+    const response = await getMusics(id);
 
     this.setState({
-      musics: result,
-      artistName: result[0].artistName,
-      albumName: result[0].collectionName,
+      musics: response,
+      artistName: response[0].artistName,
+      albumName: response[0].collectionName,
     });
   };
 
+  isFavoriteSong = (trackId) => {
+    const { savedSongs } = this.state;
+    return savedSongs.some((savedSong) => savedSong.trackId === trackId);
+  };
+
   render() {
-    const { savedSongs, isLoading, musics, artistName, albumName } = this.state;
+    const { isLoading, musics, artistName, albumName } = this.state;
 
     if (isLoading) return <Loading />;
 
@@ -54,19 +59,24 @@ export default class Album extends Component {
       <div data-testid="page-album">
         <Header />
 
-        <div>
-          <h2 data-testid="artist-name">{artistName}</h2>
-          <h3 data-testid="album-name">{albumName}</h3>
-        </div>
+        <AlbumInfo
+          artistName={ artistName }
+          albumName={ albumName }
+        />
 
-        {musics.slice(1).map((music) => (
-          <div key={ music.trackId }>
+        {musics.slice(1).map((music) => {
+          const { trackId } = music;
+
+          return (
             <MusicCard
               music={ music }
-              savedSongs={ savedSongs }
+              isFavorite={ this.isFavoriteSong(trackId) }
+              key={ trackId }
+              trackId={ Number(trackId) }
+              updateSongs={ this.getSavedSongs }
             />
-          </div>
-        ))}
+          );
+        })}
       </div>
     );
   }

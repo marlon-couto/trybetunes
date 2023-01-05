@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Album from './pages/album/Album';
-import Favorites from './pages/favorites/Favorites';
+import Album from './pages/musics/Album';
+import Favorites from './pages/musics/Favorites';
 import Login from './pages/login/Login';
+import NotFound from './pages/NotFound';
 import Profile from './pages/profile/Profile';
 import ProfileEdit from './pages/profile/ProfileEdit';
 import Search from './pages/search/Search';
-import NotFound from './pages/NotFound';
 
 class App extends React.Component {
   render() {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default class SubmitButton extends Component {
   render() {
-    const { isDisabled, handleClick } = this.props;
+    const { text, dataTestId, isDisabled, handleClick } = this.props;
 
     return (
       <div>
@@ -13,9 +13,9 @@ export default class SubmitButton extends Component {
           name="submitButton"
           disabled={ isDisabled }
           onClick={ handleClick }
-          data-testid="login-submit-button"
+          data-testid={ dataTestId }
         >
-          Entrar
+          { text }
         </button>
       </div>
     );
@@ -25,4 +25,6 @@ export default class SubmitButton extends Component {
 SubmitButton.propTypes = {
   isDisabled: PropTypes.bool.isRequired,
   handleClick: PropTypes.func.isRequired,
+  dataTestId: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
 };

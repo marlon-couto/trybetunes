@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getUser } from '../../services/userAPI';
 
-import Loading from '../Loading';
+import Loading from './Loading';
 import Navbar from './Navbar';
 
 export default class Header extends Component {

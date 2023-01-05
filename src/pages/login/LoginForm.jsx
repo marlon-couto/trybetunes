@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import NameInput from './NameInput';
-import SubmitButton from './SubmitButton';
+import Input from '../../components/form/Input';
+import SubmitButton from '../../components/form/SubmitButton';
 
 export default class Form extends Component {
   render() {
@@ -10,14 +10,19 @@ export default class Form extends Component {
 
     return (
       <form>
-        <NameInput
-          userName={ userName }
+        <Input
+          value={ userName }
           handleChange={ handleChange }
+          type="text"
+          name="nameInput"
+          dataTestId="login-name-input"
         />
 
         <SubmitButton
           isDisabled={ isDisabled }
           handleClick={ handleClick }
+          dataTestId="login-submit-button"
+          text="Entrar"
         />
       </form>
     );

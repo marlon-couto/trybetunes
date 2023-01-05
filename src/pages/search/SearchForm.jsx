@@ -1,5 +1,8 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import Input from '../../components/form/Input';
+import SubmitButton from '../../components/form/SubmitButton';
 
 export default class SearchForm extends Component {
   render() {
@@ -7,23 +10,20 @@ export default class SearchForm extends Component {
 
     return (
       <form>
-        <input
+        <Input
+          value={ searchValue }
+          handleChange={ handleChange }
           type="search"
           name="searchArtist"
-          id="searchArtist"
-          data-testid="search-artist-input"
-          onChange={ handleChange }
-          value={ searchValue }
+          dataTestId="search-artist-input"
         />
 
-        <button
-          type="submit"
-          data-testid="search-artist-button"
-          disabled={ isDisabled }
-          onClick={ handleClick }
-        >
-          Pesquisar
-        </button>
+        <SubmitButton
+          isDisabled={ isDisabled }
+          handleClick={ handleClick }
+          dataTestId="search-artist-button"
+          text="Pesquisar"
+        />
       </form>
     );
   }
